@@ -11,7 +11,7 @@ Parameters:
     Default: /training/serverless/token
   GithubBranch:
     Type: AWS::SSM::Parameter::Value<String>
-    Default:/training/serverless/branch
+    Default: /training/serverless/branch
 
 Resources:
   #    ____  ___   ____   _____  ____  ___  ____   _____  _      ___  _   _  _____     __        __ _____  ____   _   _   ___    ___   _  __
