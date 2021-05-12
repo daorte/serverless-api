@@ -1,0 +1,36 @@
+version: 0.2
+env:
+  variables:
+    BUILD_DIR: "sam-build"
+    INPUT_TEMPLATE: "template.yaml"
+    OUTPUT_TEMPLATE: "packaged.yaml"
+    BUILD_OUTPUT_BUCKET: "training-codepipeline-artifacts"
+phases:
+  install:
+    commands:
+      - echo INSTALL PHASE
+      - CURRENT_TIME=$(date +%Y%m%d%H%M%S%N)
+      - echo $CURRENT_TIME
+      - VERSION_ID=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION$CURRENT_TIME | md5sum | awk '{print $1}')
+      - echo $VERSION_ID
+
+  pre_build:
+    commands:
+      - echo "Nothing to prebuild ¯\_(ツ)_/¯"
+
+  build:
+    commands:
+      - echo Building SAM application
+      - sam build --build-dir $BUILD_DIR --template-file $INPUT_TEMPLATE
+
+  post_build:
+    commands:
+      # Use Post-Build for notifications, git tags, upload artifacts to S3
+      - echo Packaging SAM application
+      - sam package --template-file $BUILD_DIR/$INPUT_TEMPLATE --s3-bucket $BUILD_OUTPUT_BUCKET --s3-prefix $VERSION_ID --force-upload --output-template-file $OUTPUT_TEMPLATE
+
+artifacts:
+  files:
+    # list of local files relative to this build environment that will be added to the final artifact (zip)
+    - $OUTPUT_TEMPLATE
+  discard-paths: yes
