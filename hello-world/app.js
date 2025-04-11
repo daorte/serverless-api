@@ -16,7 +16,7 @@ let response;
  */
 exports.lambdaHandler = async (event, context) => {
     try {
-        // const ret = await axios(url);
+        console.log("Ha ocurrido un ERROR IRRECUPERABLE en la aplicacion")
         response = {
             'statusCode': 200,
             'body': JSON.stringify({
