@@ -19,7 +19,7 @@ Resources:
         AllowOrigin: "'*'"
         AllowMethods: "'GET,POST,PUT,OPTIONS'"
       Name: "serverless-api"
-      EndpointConfiguration: EDGE
+      EndpointConfiguration: REGIONAL
       StageName: "v1"
       TracingEnabled: true
       OpenApiVersion: 3.0.1
