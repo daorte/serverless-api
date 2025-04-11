@@ -73,3 +73,5 @@ main_test*.py
 
 
 .aws-sam
+packege-lock.json
+hello-world/package-lock.json

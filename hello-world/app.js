@@ -1,5 +1,7 @@
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
+const AWSXRay = require('aws-xray-sdk');
+const AWS = AWSXRay.captureAWS(require('aws-sdk')); 
 let response;
 
 /**
@@ -15,6 +17,16 @@ let response;
  * 
  */
 exports.lambdaHandler = async (event, context) => {
+    // Obtén el segmento principal de la traza
+    const segment = AWSXRay.getSegment();
+
+    // Agregar anotaciones (para búsqueda en la consola de X-Ray)
+    segment.addAnnotation('userId', '1234');
+    segment.addAnnotation('orderStatus', 'delivered');
+
+    // Agregar metadatos (información adicional, pero no utilizable para búsquedas)
+    segment.addMetadata('customData', { key: 'value' });
+
     try {
         console.log("Ha ocurrido un ERROR IRRECUPERABLE en la aplicacion")
         response = {
