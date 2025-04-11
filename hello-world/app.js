@@ -30,6 +30,7 @@ exports.lambdaHandler = async (event, context) => {
     subsegment.close();
 
     try {
+        console.log("Hello Developers!!")
         console.log("Ha ocurrido un ERROR IRRECUPERABLE en la aplicacion")
         response = {
             'statusCode': 200,
